@@ -14,7 +14,7 @@ public class CombinedInput : IInputHandle
 
     public bool GetAttack()
     {
-        return false;
+        return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0);
     }
 
     public float GetRotation()
@@ -22,21 +22,22 @@ public class CombinedInput : IInputHandle
         Vector3 mouseScreenPosition = Input.mousePosition;
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
 
-        Vector3 toLookDirection = mouseWorldPosition - _player.position;
-        toLookDirection.z = 0;
-        toLookDirection = toLookDirection.normalized;
+        Vector3 toMouseDirection = mouseWorldPosition - _player.position;
+        toMouseDirection.z = 0;
+        toMouseDirection = toMouseDirection.normalized;
 
         float playerAngle = LimitRotation(_player.rotation.eulerAngles.z);
-        float lookAngle = Mathf.Atan2(toLookDirection.y, toLookDirection.x) * Mathf.Rad2Deg ;
+        float lookAngle = Mathf.Atan2(toMouseDirection.y, toMouseDirection.x) * Mathf.Rad2Deg - playerAngle;
         lookAngle = LimitRotation(lookAngle);
-        float rotationCommand = -(lookAngle - playerAngle) * _turnSharpness;
+        float rotationCommand = -(lookAngle) * _turnSharpness;
+
         rotationCommand = Mathf.Clamp(rotationCommand, -1f, 1f);
         return rotationCommand;
     }
 
     public float GetThrust()
     {
-        return 0;
+        return Mathf.Min(1, Input.GetAxis("Vertical2") + Mathf.Max(0f, Input.GetAxis("Vertical")));
     }
 
     public float LimitRotation(float rotation)

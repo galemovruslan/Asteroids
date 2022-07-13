@@ -15,13 +15,16 @@ public class PlayerMover : MonoBehaviour
     {
         _mover = GetComponent<ObjectMover>();
         _input = new CombinedInput(transform);
+        //_input = new KeyboardInput();
     }
 
     private void Update()
     {
-        float thrust = _input.GetThrust();
-        float rotation = _input.GetRotation();
-        HandleControl(thrust, rotation);
+        float thrustCommand = _input.GetThrust();
+        float rotationCommand = _input.GetRotation();
+        bool attackCommand = _input.GetAttack();
+        HandleControl(thrustCommand, rotationCommand);
+        Debug.Log(attackCommand);
     }
 
     public void HandleControl(float thrustCommand, float rotationCommand)
@@ -30,18 +33,6 @@ public class PlayerMover : MonoBehaviour
         var rotationSpeed = rotationCommand * _rotationSpeed;
         _mover.Move(thrustVector, rotationSpeed);
     }
-
-    // Вектор направления движения обьекта
-    private Vector2 MoveVector()
-    {
-        Vector2 direction = Vector2.right;
-        float angleRadians = _mover.Angle * Mathf.Deg2Rad;
-        // Применение матрицы вращения (на угол _object.Angle) на вектор с нулевым поворотом
-        direction.x = direction.x * Mathf.Cos(angleRadians) - direction.y * Mathf.Sin(angleRadians);
-        direction.y = direction.x * Mathf.Sin(angleRadians) + direction.y * Mathf.Cos(angleRadians);
-        return direction;
-    }
-
 
 
 }
