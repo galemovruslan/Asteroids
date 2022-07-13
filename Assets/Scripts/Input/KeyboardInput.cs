@@ -5,7 +5,7 @@ public class KeyboardInput : IInputHandle
 {
     public bool GetAttack()
     {
-        return Input.GetKey(KeyCode.Space);
+        return Input.GetKeyDown(KeyCode.Space);
     }
 
     public float GetRotation()

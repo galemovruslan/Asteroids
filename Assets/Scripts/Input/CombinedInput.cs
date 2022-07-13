@@ -27,9 +27,9 @@ public class CombinedInput : IInputHandle
         toMouseDirection = toMouseDirection.normalized;
 
         float playerAngle = LimitRotation(_player.rotation.eulerAngles.z);
-        float lookAngle = Mathf.Atan2(toMouseDirection.y, toMouseDirection.x) * Mathf.Rad2Deg - playerAngle;
-        lookAngle = LimitRotation(lookAngle);
-        float rotationCommand = -(lookAngle) * _turnSharpness;
+        float lookError = Mathf.Atan2(toMouseDirection.y, toMouseDirection.x) * Mathf.Rad2Deg - playerAngle;
+        lookError = LimitRotation(lookError);
+        float rotationCommand = -(lookError) * _turnSharpness;
 
         rotationCommand = Mathf.Clamp(rotationCommand, -1f, 1f);
         return rotationCommand;

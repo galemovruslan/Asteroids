@@ -14,8 +14,8 @@ public class PlayerMover : MonoBehaviour
     private void Awake()
     {
         _mover = GetComponent<ObjectMover>();
-        _input = new CombinedInput(transform);
-        //_input = new KeyboardInput();
+        //_input = new CombinedInput(transform);
+        _input = new KeyboardInput();
     }
 
     private void Update()
@@ -24,7 +24,6 @@ public class PlayerMover : MonoBehaviour
         float rotationCommand = _input.GetRotation();
         bool attackCommand = _input.GetAttack();
         HandleControl(thrustCommand, rotationCommand);
-        Debug.Log(attackCommand);
     }
 
     public void HandleControl(float thrustCommand, float rotationCommand)

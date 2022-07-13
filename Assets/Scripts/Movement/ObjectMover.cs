@@ -12,11 +12,34 @@ public class ObjectMover : MonoBehaviour
     private SpaceObject _object;
     private Vector2 _currentVelocity;
     private BoundsMirrorer _boundsMirrorer;
-    
+
     private void Awake()
     {
         Initialize(Vector2.zero, Vector2.zero, 0f);
         SetUpLimiter();
+    }
+    public void Initialize(Vector2 startPosition, Vector2 startVelocity, float startAngle)
+    {
+        if (_object == null)
+        {
+            _object = new SpaceObject(startPosition, startAngle);
+        }
+        else
+        {
+            _object.Move(startPosition);
+            _object.Rotate(startAngle);
+        }
+        _currentVelocity = startVelocity;
+    }
+
+    public void Move(Vector2 acceleration, float rotaionSpeed)
+    {
+        _currentVelocity += acceleration * Time.deltaTime * Time.deltaTime / 2;
+        LimitVelocity();
+        UpdateMoveStates(_currentVelocity, rotaionSpeed);
+
+        transform.position = _object.Position;
+        transform.rotation = Quaternion.Euler(0, 0, -_object.Angle);
     }
 
     private void SetUpLimiter()
@@ -32,22 +55,10 @@ public class ObjectMover : MonoBehaviour
         _boundsMirrorer = new BoundsMirrorer(screenRect);
     }
 
-
-    public void Move(Vector2 acceleration, float rotaionSpeed)
-    {
-        _currentVelocity += acceleration * Time.deltaTime*Time.deltaTime/2;
-        LimitVelocity();
-        UpdateMoveStates(_currentVelocity, rotaionSpeed);
-
-        transform.position = _object.Position;
-        transform.rotation = Quaternion.Euler(0, 0, -_object.Angle);
-    }
-
-
     private void UpdateMoveStates(Vector2 moveVector, float rotaionSpeed)
     {
         float newAngle = _object.Angle + rotaionSpeed * Time.deltaTime;
-        newAngle = LimitRotation(newAngle );
+        newAngle = LimitRotation(newAngle);
         _object.Rotate(newAngle);
 
         Vector2 newPosition = _object.Position + moveVector * Time.deltaTime;
@@ -60,19 +71,13 @@ public class ObjectMover : MonoBehaviour
 
     private void LimitVelocity()
     {
-        if(_currentVelocity.sqrMagnitude > _maxSpeed * _maxSpeed)
+        if (_currentVelocity.sqrMagnitude > _maxSpeed * _maxSpeed)
         {
             _currentVelocity = _currentVelocity.normalized * _maxSpeed;
         }
     }
 
-    private void Initialize(Vector2 startPosition, Vector2 startVelocity, float startAngle)
-    {
-        _object = new SpaceObject(startPosition, startAngle);
-        _currentVelocity = startVelocity;
-    }
-
-    public float LimitRotation(float rotation)
+    private float LimitRotation(float rotation)
     {
         rotation %= 360f;
         if (Mathf.Abs(rotation) > 180f)

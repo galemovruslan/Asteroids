@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5959027264418853424}
   - component: {fileID: 814520983}
   - component: {fileID: 814520984}
+  - component: {fileID: 8702457903645645549}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -45,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869dcd857e903d94882d2594d8e58b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _thrustForce: 1000
+  _rotationSpeed: 300
 --- !u!114 &814520984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,8 +60,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0911d2fbe5e1364b8d46aae2b73ab3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 5
-  _rotationSpeed: 300
+  _maxSpeed: 5
+  _screenBoundsMirroring: 1
+--- !u!114 &8702457903645645549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430543848325943645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443c64c387dc65b45ae26bc2a1c907f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3122103605000011767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3877621115051636281}
+  m_Layer: 0
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3877621115051636281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122103605000011767}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.973, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1875300497722027497}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6655474484172119377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,6 +114,10 @@ PrefabInstance:
     - target: {fileID: 549181028632378011, guid: 119f2a7dad049744d8e5d5da42ca6f4f, type: 3}
       propertyPath: m_Name
       value: Player Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135850984741925314, guid: 119f2a7dad049744d8e5d5da42ca6f4f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.065
       objectReference: {fileID: 0}
     - target: {fileID: 6680340766876001936, guid: 119f2a7dad049744d8e5d5da42ca6f4f, type: 3}
       propertyPath: m_RootOrder
@@ -131,5 +180,10 @@ PrefabInstance:
 --- !u!4 &65768728657476545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6680340766876001936, guid: 119f2a7dad049744d8e5d5da42ca6f4f, type: 3}
+  m_PrefabInstance: {fileID: 6655474484172119377}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1875300497722027497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5069532667860807864, guid: 119f2a7dad049744d8e5d5da42ca6f4f, type: 3}
   m_PrefabInstance: {fileID: 6655474484172119377}
   m_PrefabAsset: {fileID: 0}
