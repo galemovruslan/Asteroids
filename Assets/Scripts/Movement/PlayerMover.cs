@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ObjectMover))]
@@ -14,16 +12,18 @@ public class PlayerMover : MonoBehaviour
     private void Awake()
     {
         _mover = GetComponent<ObjectMover>();
-        //_input = new CombinedInput(transform);
-        _input = new KeyboardInput();
     }
 
     private void Update()
     {
         float thrustCommand = _input.GetThrust();
         float rotationCommand = _input.GetRotation();
-        bool attackCommand = _input.GetAttack();
         HandleControl(thrustCommand, rotationCommand);
+    }
+
+    public void Initialize(IInputHandle inputHandle)
+    {
+        _input = inputHandle;
     }
 
     public void HandleControl(float thrustCommand, float rotationCommand)

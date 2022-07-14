@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Weapon))]
@@ -11,13 +9,17 @@ public class PlayerShooter : MonoBehaviour
 
     private void Awake()
     {
-        _input = new KeyboardInput();
         _weapon = GetComponent<Weapon>();
     }
 
     private void Update()
     {
         HandleShoot();
+    }
+
+    public void Initialize(IInputHandle inputHandle)
+    {
+        _input = inputHandle;
     }
 
     private void HandleShoot()

@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _firePoint;
     [SerializeField] private float _bulletSpeed = 5f;
     [SerializeField] private float _fireCooldown = 1f;
+    [SerializeField] private Pool _bulletPool;
 
     private Timer _timer;
     private bool _canFire = true;
@@ -25,7 +26,7 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        Bullet newBullet = Instantiate<Bullet>(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        Bullet newBullet = _bulletPool.GetItem() as Bullet;
         newBullet.Launch(_firePoint.position, _firePoint.right, _bulletSpeed);
 
         _canFire = false;

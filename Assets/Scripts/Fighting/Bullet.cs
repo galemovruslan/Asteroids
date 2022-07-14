@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ObjectMover))]
-public class Bullet : MonoBehaviour
+public class Bullet : PoolItem
 {
     private ObjectMover _mover;
-
 
     private void Awake()
     {
@@ -28,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent<ScreenBoundary>(out var boundary))
         {
-            Destroy(gameObject);
+            ReturnToPool();
         }
     }
 
