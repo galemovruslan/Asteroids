@@ -35,7 +35,6 @@ public class Weapon : MonoBehaviour
     private void OnCooldown()
     {
         _canFire = true;
-        Debug.Log("Can fire");
     }
 
 

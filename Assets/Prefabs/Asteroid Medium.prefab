@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2585339632066588630}
   - component: {fileID: 7168561970236461975}
   - component: {fileID: -5775318362710810676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Asteroid Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid Medium
       objectReference: {fileID: 0}
+    - target: {fileID: 1887117078484402704, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5019154403556412925, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -140,6 +144,18 @@ PrefabInstance:
     - target: {fileID: 5019154403556412925, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036839673076063827, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547756864400331795, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548605286959322019, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1234404919094056273, guid: fbad86e2cc8d37b4bae8218fd926d0f6, type: 3}

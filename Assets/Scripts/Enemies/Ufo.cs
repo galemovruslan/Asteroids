@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(ObjectMover))]
 public class Ufo : MonoBehaviour
 {
+    public event Action Destroyed;
+
     [SerializeField] float _speed = 5f;
 
     private ObjectMover _mover;
+    private Vector3 _respawnWaitPoint = new Vector3(100, 100, 0);
 
     private void Awake()
     {
         _mover = GetComponent<ObjectMover>();
+        gameObject.SetActive(false);
     }
 
     private void Update()
@@ -19,19 +24,22 @@ public class Ufo : MonoBehaviour
         _mover.Move(Vector2.zero, 0f);
     }
 
-    public void Initialize(Vector2 position)
+    private void OnTriggerEnter(Collider other)
     {
-        _mover.Initialize(position, Vector2.zero, 0f);
-    }
-   
-    public void Launch(Vector2 position, Vector2 direction)
-    {
-        _mover.Initialize(position, direction.normalized * _speed , 0f);
+        HandleDestruction();
     }
 
-    [ContextMenu("Launch")]
-    public void TestLaunch()
+    public void Launch(Vector2 position, Vector2 direction)
     {
-        Launch(Vector2.zero, Vector2.right);
+        gameObject.SetActive(true);
+        _mover.Initialize(position, direction.normalized * _speed, 0f);
     }
+
+    private void HandleDestruction()
+    {
+        Destroyed();
+        gameObject.SetActive(false);
+        transform.position = _respawnWaitPoint;
+    }
+
 }

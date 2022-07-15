@@ -27,4 +27,9 @@ public class PlayerComposer : MonoBehaviour
         _shooter.Initialize(input);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Player destroyed");
+    }
+
 }

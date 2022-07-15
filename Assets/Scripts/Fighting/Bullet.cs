@@ -25,7 +25,9 @@ public class Bullet : PoolItem
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<ScreenBoundary>(out var boundary))
+        if (other.TryGetComponent<ScreenBoundary>(out var boundary) ||
+            other.TryGetComponent<Asteroid>(out var asteroid) ||
+            other.TryGetComponent<Ufo>(out var ufo))
         {
             ReturnToPool();
         }

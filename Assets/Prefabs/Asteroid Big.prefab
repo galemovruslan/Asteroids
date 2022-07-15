@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7672215912028942606}
   - component: {fileID: -6807465336519067199}
   - component: {fileID: -8319697444700181873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Asteroid Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,6 +81,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2323580162078884039}
     m_Modifications:
+    - target: {fileID: 2764895739978012449, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2779397042825126399, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -137,9 +141,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3527111284638265937, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938311155087507922, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167141904946380705, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173630248635119633, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031247279345949115, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8720545887957249554, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
       propertyPath: m_Name
       value: Asteroid Big
+      objectReference: {fileID: 0}
+    - target: {fileID: 8720545887957249554, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7823657373784062119, guid: 9bf5d8b3359496940bc8cf349abbdef2, type: 3}

@@ -14,10 +14,14 @@ public class Asteroid : PoolItem
     }
 
     public event Action<Asteroid, bool> Destroyed;
+
+    public Vector2 Velocity => _velocity;
+    public Vector2 Position => transform.position;
     [field: SerializeField] public AsteroidSize Size { get; private set; }
 
     private ObjectMover _mover;
     private float _angleSpeed;
+    private Vector2 _velocity;
 
     private void Awake()
     {
@@ -32,17 +36,29 @@ public class Asteroid : PoolItem
     public void Launch(Vector2 position, Vector2 direction, float speed, float angleSpeed)
     {
         _angleSpeed = angleSpeed;
+        _velocity = direction.normalized * speed;
         float angle = -Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        _mover.Initialize(position, direction.normalized * speed, angle);
+        _mover.Initialize(position, _velocity, angle);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<PlayerComposer>(out var player))
+        if (other.TryGetComponent<Bullet>(out var bullet))
         {
-            Destroyed(this,false);
-            ReturnToPool();
+            bool spawnNext = true;
+            GetHit(spawnNext);
         }
+        else
+        {
+            bool spawnNext = false;
+            GetHit(spawnNext);
+        }
+
     }
 
+    private void GetHit(bool spawnNext)
+    {
+        Destroyed?.Invoke(this, spawnNext);
+        ReturnToPool();
+    }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4939822296012038647}
   - component: {fileID: 1393748091813755783}
   - component: {fileID: -3339798955196271600}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Asteroid Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid Small
       objectReference: {fileID: 0}
+    - target: {fileID: 1668283072652117568, guid: dd90c4273a3a9de40a2b0f365c4be52f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5237987873106004397, guid: dd90c4273a3a9de40a2b0f365c4be52f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -140,6 +144,14 @@ PrefabInstance:
     - target: {fileID: 5237987873106004397, guid: dd90c4273a3a9de40a2b0f365c4be52f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325519311145128003, guid: dd90c4273a3a9de40a2b0f365c4be52f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338778741785516019, guid: dd90c4273a3a9de40a2b0f365c4be52f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9053824603579983017, guid: dd90c4273a3a9de40a2b0f365c4be52f, type: 3}
