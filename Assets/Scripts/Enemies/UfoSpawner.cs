@@ -22,6 +22,10 @@ public class UfoSpawner : MonoBehaviour
 
     private void Start()
     {
+    }
+
+    public void StarSpawn()
+    {
         Spawn();
         _respawnTimer.Restart(_respawnDelay);
     }

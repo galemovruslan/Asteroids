@@ -112,7 +112,7 @@ MonoBehaviour:
   _firePoint: {fileID: 7605714574850239336}
   _bulletSpeed: 10
   _fireCooldown: 0.3
-  _bulletPool: {fileID: 0}
+  _bulletPool: {fileID: 4725088616956601978, guid: 2bf7c1a91f4b5794295642f539186cfb, type: 3}
 --- !u!114 &1022899339
 MonoBehaviour:
   m_ObjectHideFlags: 0

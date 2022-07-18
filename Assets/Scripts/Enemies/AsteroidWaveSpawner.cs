@@ -32,6 +32,10 @@ public class AsteroidWaveSpawner : MonoBehaviour
 
     private void Start()
     {
+    }
+
+    public void StartSpawn()
+    {
         SpawnWave(_splitAmount);
     }
 

@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LivesSystem
+public class LifesSystem
 {
     public event Action<int> LiveTaken;
 
     private int _maxHealth;
     private int _currentHealth;
 
-    public LivesSystem(int maxHealth)
+    public LifesSystem(int maxHealth)
     {
         _maxHealth = maxHealth;
         _currentHealth = _maxHealth;

@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover)),
  RequireComponent(typeof(PlayerShooter))]
 public class PlayerComposer : MonoBehaviour
 {
+    public event Action PlayerDestroyed;
+
     private PlayerMover _mover;
     private PlayerShooter _shooter;
 
@@ -18,18 +21,22 @@ public class PlayerComposer : MonoBehaviour
         _mover = GetComponent<PlayerMover>();
         _shooter = GetComponent<PlayerShooter>();
 
-        InitializePlayer(_keyboardInput);
+        SetInputScheme(_keyboardInput);
     }
 
-    public void InitializePlayer(IInputHandle input)
+    private void OnTriggerEnter(Collider other)
+    {
+        HandleDestroy();
+    }
+
+    public void SetInputScheme(IInputHandle input)
     {
         _mover.Initialize(input);
         _shooter.Initialize(input);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void HandleDestroy()
     {
-        Debug.Log("Player destroyed");
+        PlayerDestroyed?.Invoke();
     }
-
 }
