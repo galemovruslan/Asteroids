@@ -35,11 +35,22 @@ public class Ufo : MonoBehaviour
         _mover.Initialize(position, direction.normalized * _speed, 0f);
     }
 
+    public void WaitForLaunch()
+    {
+        //gameObject.SetActive(false);
+        transform.position = _respawnWaitPoint;
+        _mover.Initialize(_respawnWaitPoint, Vector2.zero, 0);
+    }
+
+    public void ForceDestroy()
+    {
+        HandleDestruction();
+    }
+
     private void HandleDestruction()
     {
-        Destroyed();
-        gameObject.SetActive(false);
-        transform.position = _respawnWaitPoint;
+        Destroyed?.Invoke();
+        WaitForLaunch();
     }
 
 }

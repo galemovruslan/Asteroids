@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private Transform _firePoint;
     [SerializeField] private float _bulletSpeed = 5f;
     [SerializeField] private float _fireCooldown = 1f;
@@ -32,6 +31,13 @@ public class Weapon : MonoBehaviour
         _canFire = false;
         _timer.Restart(_fireCooldown);
     }
+
+    public void ResetWeapon()
+    {
+        _bulletPool.ResetContents();
+        _canFire = true;
+    }
+
     private void OnCooldown()
     {
         _canFire = true;

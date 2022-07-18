@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimerTicker : Singleton<TimerTicker>
+[RequireComponent(typeof(PauseableObject))]
+public class TimerTicker : Singleton<TimerTicker>, IPauseable
 {
-    
     [SerializeField ] private List<Timer> _timers;
+
+    private bool _isPaused;
 
     private void Awake()
     {
@@ -17,11 +19,18 @@ public class TimerTicker : Singleton<TimerTicker>
         _timers.Add(newTimer);
     }
 
-    void Update()
+    private void Update()
     {
+        if (_isPaused) { return; }
+
         foreach (var timer in _timers)
         {
             timer.Tick(Time.deltaTime);
         }
+    }
+
+    public void SetPause(bool value)
+    {
+        _isPaused = value;
     }
 }

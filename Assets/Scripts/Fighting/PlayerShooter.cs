@@ -17,9 +17,14 @@ public class PlayerShooter : MonoBehaviour
         HandleShoot();
     }
 
-    public void Initialize(IInputHandle inputHandle)
+    public void SetInputScheme(IInputHandle inputHandle)
     {
         _input = inputHandle;
+    }
+
+    public void ResetShooter()
+    {
+        _weapon.ResetWeapon();
     }
 
     private void HandleShoot()

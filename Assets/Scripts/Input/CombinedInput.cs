@@ -56,4 +56,9 @@ public class CombinedInput : IInputHandle
         }
         return rotation;
     }
+
+    public bool GetPause()
+    {
+        return Input.GetKeyDown(KeyCode.Escape);
+    }
 }

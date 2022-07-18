@@ -22,11 +22,14 @@ public class Timer
     {
         _setTime = time;
         _time = 0;
-        _isRunning = false;
         _isDone = false;
         _isRunning = true;
     }
 
+    public void Stop()
+    {
+        _isRunning = false;
+    }
 
     public void Tick(float deltaTime)
     {

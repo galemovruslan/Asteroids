@@ -18,16 +18,24 @@ public class UfoSpawner : MonoBehaviour
     {
         _directiontPicker = new DirectiontPicker();
         _respawnTimer = new Timer();
-    }
-
-    private void Start()
-    {
+        _ufo = Instantiate<Ufo>(_ufoPrefab, Vector3.zero, Quaternion.identity);
+        _ufo.WaitForLaunch();
     }
 
     public void StarSpawn()
     {
-        Spawn();
+        ResetSpawner();
+        _ufo.Destroyed += OnDestruction;
+        _respawnTimer.OnDone += LaunchRandom;
         _respawnTimer.Restart(_respawnDelay);
+    }
+
+    private void ResetSpawner()
+    {
+        _ufo.Destroyed -= OnDestruction;
+        _respawnTimer.OnDone -= LaunchRandom;
+        _ufo.ForceDestroy();
+        _respawnTimer.Stop();
     }
 
     private void LaunchRandom()
@@ -40,13 +48,6 @@ public class UfoSpawner : MonoBehaviour
     private void Launch(Vector2 start, Vector2 direction)
     {
         _ufo.Launch(start, direction);
-    }
-
-    private void Spawn()
-    {
-        _ufo = Instantiate<Ufo>(_ufoPrefab, Vector3.zero, Quaternion.identity);
-        _ufo.Destroyed += OnDestruction;
-        _respawnTimer.OnDone += LaunchRandom;
     }
 
     private void OnDestruction()

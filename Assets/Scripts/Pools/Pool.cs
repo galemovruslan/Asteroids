@@ -6,6 +6,7 @@ public class Pool : MonoBehaviour
 {
     [SerializeField] private PoolItem _prototipe;
     [SerializeField] private int _poolSize = 10;
+    [SerializeField] private Vector3 _waitPosition = new Vector3(200, 200, 0);
 
     private List<PoolItem> _pool;
 
@@ -38,7 +39,15 @@ public class Pool : MonoBehaviour
     public void ReturnToPool(PoolItem returnItem)
     {
         returnItem.Activate(false);
+        returnItem.transform.position = _waitPosition;
+    }
 
+    public void ResetContents()
+    {
+        foreach (var item in _pool)
+        {
+            ReturnToPool(item);
+        }
     }
 
     private void RepopulatePool()
@@ -57,7 +66,7 @@ public class Pool : MonoBehaviour
 
     private PoolItem CreateItem()
     {
-        PoolItem newObject = Instantiate<PoolItem>(_prototipe, _itemParent.transform);
+        PoolItem newObject = Instantiate<PoolItem>(_prototipe, _waitPosition, Quaternion.identity, _itemParent.transform);
         newObject.LinkedPool = this;
         newObject.Activate(false);
         return newObject;

@@ -19,23 +19,13 @@ public class AsteroidWaveSpawner : MonoBehaviour
     [SerializeField] private float _borderMargin = 0f;
 
     private int _spawnAmount;
-    private HashSet<Asteroid> _currentWave;
+    private HashSet<Asteroid> _currentWave = new HashSet<Asteroid>();
     private DirectiontPicker _directiontPicker;
 
 
-    private void Awake()
-    {
-        _spawnAmount = _startWaveAmount;
-        _currentWave = new HashSet<Asteroid>();
-        _directiontPicker = new DirectiontPicker();
-    }
-
-    private void Start()
-    {
-    }
-
     public void StartSpawn()
     {
+        ResetWave();
         SpawnWave(_splitAmount);
     }
 
@@ -72,7 +62,7 @@ public class AsteroidWaveSpawner : MonoBehaviour
             newAsteroid.Destroyed += OnAsteroidDestroy;
         }
 
-        InitSubAsteroids(asteroid, subAsteroids);
+        CalculateSubAsteroidsVelocity(asteroid, subAsteroids);
     }
 
     private Asteroid GetNextAsteroid(Asteroid.AsteroidSize size)
@@ -92,6 +82,20 @@ public class AsteroidWaveSpawner : MonoBehaviour
         return newAsteroid;
     }
 
+    private void ResetWave()
+    {
+        foreach (var asteroid in _currentWave)
+        {
+            asteroid.Destroyed -= OnAsteroidDestroy;
+        }
+        _spawnAmount = _startWaveAmount;
+        _currentWave.Clear();
+        _directiontPicker = new DirectiontPicker();
+        _bigAsteroidPool.ResetContents();
+        _mediumAsteroidPool.ResetContents();
+        _smallAsteroidPool.ResetContents();
+    }
+
     private void SpawnWave(int size)
     {
         for (int i = 0; i < size; i++)
@@ -105,6 +109,7 @@ public class AsteroidWaveSpawner : MonoBehaviour
             float speed = Random.Range(_minSpeed, _maxSpeed);
             newAsteroid.Launch(launchData.Start, launchData.Direction, speed, 1f);
         }
+        Debug.Log($"Spawning {size} asteroids");
     }
 
     private LaunchData GetRandomLaunchDirection()
@@ -121,7 +126,7 @@ public class AsteroidWaveSpawner : MonoBehaviour
         }
     }
 
-    private void InitSubAsteroids(Asteroid parentAsteroid, List<Asteroid> subAsteroids)
+    private void CalculateSubAsteroidsVelocity(Asteroid parentAsteroid, List<Asteroid> subAsteroids)
     {
         float subRotation = Random.Range(0f, 10f);
         float subSpeed = Random.Range(_minSpeed, _maxSpeed);

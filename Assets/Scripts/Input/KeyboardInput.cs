@@ -8,6 +8,11 @@ public class KeyboardInput : IInputHandle
         return Input.GetKeyDown(KeyCode.Space);
     }
 
+    public bool GetPause()
+    {
+        return Input.GetKeyDown(KeyCode.Escape);
+    }
+
     public float GetRotation()
     {
         return Input.GetAxis("Horizontal");

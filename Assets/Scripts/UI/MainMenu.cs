@@ -12,8 +12,28 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button _newGame;
     [SerializeField] private Toggle _inputSelector;
     [SerializeField] private Button _quit;
-    [SerializeField] private Game _game;
+    
+    private Game _game;
+    private bool _visible;
 
+    private void Awake()
+    {
+        _continue.onClick.AddListener(ContinueGame);
+        _newGame.onClick.AddListener(NewGame);
+        _inputSelector.onValueChanged.AddListener(SelectInputScheme);
+        _quit.onClick.AddListener(Quit);
+    }
+
+    public void Initialize(Game game)
+    {
+        _game = game;
+    }
+
+    public void SetVisible(bool value)
+    {
+        _visible = value;
+        gameObject.SetActive(_visible);
+    }
 
     private void NewGame()
     {
@@ -22,7 +42,7 @@ public class MainMenu : MonoBehaviour
 
     private void ContinueGame()
     {
-
+        _game.ContinueGame();
     }
 
     private void SelectInputScheme(bool isCombined)

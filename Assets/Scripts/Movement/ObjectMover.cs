@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectMover : MonoBehaviour
+[RequireComponent(typeof(PauseableObject))]
+public class ObjectMover : MonoBehaviour, IPauseable
 {
     public float Angle => _object.Angle;
 
@@ -12,12 +11,14 @@ public class ObjectMover : MonoBehaviour
     private SpaceObject _object;
     private Vector2 _currentVelocity;
     private BoundsMirrorer _boundsMirrorer;
+    private bool _isPaused = false;
 
     private void Awake()
     {
         Initialize(Vector2.zero, Vector2.zero, 0f);
         SetUpLimiter();
     }
+
     public void Initialize(Vector2 startPosition, Vector2 startVelocity, float startAngle)
     {
         if (_object == null)
@@ -34,6 +35,8 @@ public class ObjectMover : MonoBehaviour
 
     public void Move(Vector2 acceleration, float rotaionSpeed)
     {
+        if (_isPaused) { return; }
+
         _currentVelocity += acceleration * Time.deltaTime * Time.deltaTime / 2;
         LimitVelocity();
         UpdateMoveStates(_currentVelocity, rotaionSpeed);
@@ -94,4 +97,8 @@ public class ObjectMover : MonoBehaviour
         return rotation;
     }
 
+    public void SetPause(bool value)
+    {
+        _isPaused = value;
+    }
 }
