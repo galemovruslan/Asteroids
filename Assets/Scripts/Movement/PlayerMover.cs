@@ -33,5 +33,9 @@ public class PlayerMover : MonoBehaviour
         _mover.Move(thrustVector, rotationSpeed);
     }
 
+    public void ReserMover(Vector2 resetPosition)
+    {
+        _mover.Initialize(resetPosition, Vector2.zero, 0);
+    }
 
 }

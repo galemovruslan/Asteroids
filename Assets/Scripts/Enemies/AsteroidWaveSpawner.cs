@@ -109,7 +109,6 @@ public class AsteroidWaveSpawner : MonoBehaviour
             float speed = Random.Range(_minSpeed, _maxSpeed);
             newAsteroid.Launch(launchData.Start, launchData.Direction, speed, 1f);
         }
-        Debug.Log($"Spawning {size} asteroids");
     }
 
     private LaunchData GetRandomLaunchDirection()

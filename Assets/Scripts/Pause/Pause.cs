@@ -13,7 +13,7 @@ public class Pause
         if (value == IsPaused) { return; }
 
         IsPaused = value;
-        _pauseables = GameObject.FindObjectsOfType<PauseableObject>();
+        _pauseables = GameObject.FindObjectsOfType<PauseableObject>(includeInactive: true);
 
 
         foreach (var item in _pauseables)

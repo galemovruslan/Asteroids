@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4631809602427628801}
   - component: {fileID: 742713656884348792}
   - component: {fileID: 4093122007648264435}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Red Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 100
-  _screenBoundsMirroring: 0
+  _screenBoundsMirroring: 1
 --- !u!1001 &3005281376707855226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98,9 +98,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3056408214168967187}
     m_Modifications:
+    - target: {fileID: 658700118695364586, guid: a2f70380e8f42ef45af83c8ec53b2d8c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1403898076952852067, guid: a2f70380e8f42ef45af83c8ec53b2d8c, type: 3}
       propertyPath: m_Name
       value: Red Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1403898076952852067, guid: a2f70380e8f42ef45af83c8ec53b2d8c, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1794486916311838696, guid: a2f70380e8f42ef45af83c8ec53b2d8c, type: 3}
       propertyPath: m_RootOrder

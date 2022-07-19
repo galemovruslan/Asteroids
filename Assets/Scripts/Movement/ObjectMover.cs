@@ -47,14 +47,15 @@ public class ObjectMover : MonoBehaviour, IPauseable
 
     private void SetUpLimiter()
     {
-        Vector3 bottomLeftBoundary = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
-        Vector3 topRightBoundary = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, Camera.main.nearClipPlane));
+        //Vector3 bottomLeftBoundary = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
+        //Vector3 topRightBoundary = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, Camera.main.nearClipPlane));
 
-        Vector2 gameFieldSize = new Vector2(
-            topRightBoundary.x - bottomLeftBoundary.x,
-            topRightBoundary.y - bottomLeftBoundary.y);
+        //Vector2 gameFieldSize = new Vector2(
+        //    topRightBoundary.x - bottomLeftBoundary.x,
+        //    topRightBoundary.y - bottomLeftBoundary.y);
 
-        Rect screenRect = new Rect(bottomLeftBoundary, gameFieldSize);
+        //Rect screenRect = new Rect(bottomLeftBoundary, gameFieldSize);
+        Rect screenRect = Constants.ScreenRect;
         _boundsMirrorer = new BoundsMirrorer(screenRect);
     }
 

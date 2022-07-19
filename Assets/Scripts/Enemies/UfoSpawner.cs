@@ -6,10 +6,12 @@ using UnityEngine;
 public class UfoSpawner : MonoBehaviour
 {
     [SerializeField] private Ufo _ufoPrefab;
-    [SerializeField] private float _respawnDelay = 20f;
-    [Range(0,0.5f)]
+    [SerializeField] private float _minSpawnDelay = 20f;
+    [SerializeField] private float _maxSpawnDelay = 40f;
+    [Range(0, 0.5f)]
     [SerializeField] private float _spawnMarginPercent = 0.2f;
 
+    private float _respawnDelay;
     private DirectiontPicker _directiontPicker;
     private Timer _respawnTimer;
     private Ufo _ufo;
@@ -19,6 +21,10 @@ public class UfoSpawner : MonoBehaviour
         _directiontPicker = new DirectiontPicker();
         _respawnTimer = new Timer();
         _ufo = Instantiate<Ufo>(_ufoPrefab, Vector3.zero, Quaternion.identity);
+    }
+
+    private void Start()
+    {
         _ufo.WaitForLaunch();
     }
 
@@ -26,6 +32,7 @@ public class UfoSpawner : MonoBehaviour
     {
         ResetSpawner();
         _ufo.Destroyed += OnDestruction;
+        _respawnDelay = UnityEngine.Random.Range(_minSpawnDelay, _maxSpawnDelay);
         _respawnTimer.OnDone += LaunchRandom;
         _respawnTimer.Restart(_respawnDelay);
     }
@@ -52,6 +59,7 @@ public class UfoSpawner : MonoBehaviour
 
     private void OnDestruction()
     {
+        _respawnDelay = UnityEngine.Random.Range(_minSpawnDelay, _maxSpawnDelay);
         _respawnTimer.Restart(_respawnDelay);
     }
 }

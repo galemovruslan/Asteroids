@@ -1200,17 +1200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1352ba76964d8fb43ae3189a47b0d061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &914342743 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3972368904412858707, guid: f448a8e1ecfbf164da7fbaa3b4d04304, type: 3}
-  m_PrefabInstance: {fileID: 914342741}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1352ba76964d8fb43ae3189a47b0d061, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &914342744 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3972368905049564031, guid: f448a8e1ecfbf164da7fbaa3b4d04304, type: 3}
@@ -2682,10 +2671,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8702457903645645549, guid: 667a3a796b3549a408d9627d6ded932b, type: 3}
-      propertyPath: _bulletPool
-      value: 
-      objectReference: {fileID: 914342743}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 667a3a796b3549a408d9627d6ded932b, type: 3}
 --- !u!1001 &8907550964367065002
@@ -2702,6 +2687,14 @@ PrefabInstance:
     - target: {fileID: 8907550963031790254, guid: 6b943f0c792978e4da1b46c5dadec702, type: 3}
       propertyPath: _respawnDelay
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907550963031790254, guid: 6b943f0c792978e4da1b46c5dadec702, type: 3}
+      propertyPath: _maxSpawnDelay
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8907550963031790254, guid: 6b943f0c792978e4da1b46c5dadec702, type: 3}
+      propertyPath: _minSpawnDelay
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8907550963031790255, guid: 6b943f0c792978e4da1b46c5dadec702, type: 3}
       propertyPath: m_RootOrder

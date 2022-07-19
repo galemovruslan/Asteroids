@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4631809602427628801}
   - component: {fileID: 742713656884348792}
   - component: {fileID: 4093122007648264435}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Green Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 100
-  _screenBoundsMirroring: 0
+  _screenBoundsMirroring: 1
 --- !u!1001 &4798009937045313789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,6 +145,14 @@ PrefabInstance:
     - target: {fileID: 5335042305695264480, guid: ce397b04de9ea7d438d5a09845fcd757, type: 3}
       propertyPath: m_Name
       value: Green Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335042305695264480, guid: ce397b04de9ea7d438d5a09845fcd757, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5788930015330377577, guid: ce397b04de9ea7d438d5a09845fcd757, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7803875016075427909, guid: ce397b04de9ea7d438d5a09845fcd757, type: 3}

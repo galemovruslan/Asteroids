@@ -27,8 +27,9 @@ public class PlayerComposer : MonoBehaviour
         _shooter.SetInputScheme(input);
     }
 
-    public void ResetPlayer()
+    public void ResetPlayer(Vector2 position)
     {
+        _mover.ReserMover(position);
         _shooter.ResetShooter();
     }
 

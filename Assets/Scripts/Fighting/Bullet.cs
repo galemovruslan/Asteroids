@@ -6,10 +6,13 @@ using UnityEngine;
 public class Bullet : PoolItem
 {
     private ObjectMover _mover;
+    private Timer _timer;
 
     private void Awake()
     {
         _mover = GetComponent<ObjectMover>();
+        _timer = new Timer();
+        _timer.OnDone += _timer_OnDone;
     }
 
     private void Update()
@@ -17,20 +20,23 @@ public class Bullet : PoolItem
         _mover.Move(Vector2.zero, 0f);
     }
 
-    public void Launch(Vector2 position, Vector2 direction, float speed)
+    private void OnTriggerEnter(Collider other)
+    {
+        _timer.Stop();
+        ReturnToPool();
+    }
+
+    public void Launch(Vector2 position, Vector2 direction, float speed, float lifetime)
     {
         float angle = -Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _mover.Initialize(position, direction.normalized * speed, angle);
+        _timer.Restart(lifetime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void _timer_OnDone()
     {
-        if (other.TryGetComponent<ScreenBoundary>(out var boundary) ||
-            other.TryGetComponent<Asteroid>(out var asteroid) ||
-            other.TryGetComponent<Ufo>(out var ufo))
-        {
-            ReturnToPool();
-        }
+        ReturnToPool();
     }
+
 
 }

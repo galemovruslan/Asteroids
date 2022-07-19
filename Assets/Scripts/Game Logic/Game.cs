@@ -67,6 +67,7 @@ public class Game : MonoBehaviour
         _lifes.ResetHealth();
         _points.Reset();
         _gamePause.SetPause(false);
+        _player.ResetPlayer(Vector2.zero);
     }
 
     public void OnInputSchmeChanged(ControlType type)
