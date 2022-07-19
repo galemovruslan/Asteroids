@@ -115,7 +115,12 @@ public class Game : MonoBehaviour
         _healthUI.SetValue(amount);
         if (amount == 0)
         {
-
+            _gamePause.SetPause(true);
         }
+    }
+
+    private void GameOver()
+    {
+
     }
 }

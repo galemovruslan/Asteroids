@@ -2,13 +2,16 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover)),
- RequireComponent(typeof(PlayerShooter))]
+ RequireComponent(typeof(PlayerShooter)),
+ RequireComponent(typeof(Flasher))]
 public class PlayerComposer : MonoBehaviour
 {
     public event Action PlayerDestroyed;
 
     private PlayerMover _mover;
     private PlayerShooter _shooter;
+    private Flasher _flasher;
+    private bool _isInvincible;
 
     private void Awake()
     {
@@ -33,8 +36,19 @@ public class PlayerComposer : MonoBehaviour
         _shooter.ResetShooter();
     }
 
+    public void ActivateInvincibility()
+    {
+
+    }
+
     private void HandleDestroy()
     {
         PlayerDestroyed?.Invoke();
     }
+
+    private void SetInvincible(float seconds)
+    {
+
+    }
+
 }
