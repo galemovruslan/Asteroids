@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Weapon))]
-public class PlayerShooter : MonoBehaviour
+public class PlayerShooter : MonoBehaviour, IPauseable
 {
 
     private Weapon _weapon;
     private IInputHandle _input;
+    private bool _isPaused = false;
 
     private void Awake()
     {
@@ -14,6 +15,8 @@ public class PlayerShooter : MonoBehaviour
 
     private void Update()
     {
+        if(_isPaused) { return; }
+
         HandleShoot();
     }
 
@@ -34,5 +37,10 @@ public class PlayerShooter : MonoBehaviour
         {
             _weapon.Fire();
         }
+    }
+
+    public void SetPause(bool value)
+    {
+        _isPaused = value;
     }
 }

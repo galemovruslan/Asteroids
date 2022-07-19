@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Flasher : MonoBehaviour
 {
+    public event Action DoneFlashing;
+
     [SerializeField] private GameObject _visuals;
     [Min(0.1f)]
-    [SerializeField] private float _frequency = 0.5f;
+    [SerializeField] private float _halfPeriod = 0.5f;
 
     private Timer _modulator;
     private Timer _duration;
@@ -29,7 +32,7 @@ public class Flasher : MonoBehaviour
     {
         _isFlashing = true;
         _duration.Restart(duration);
-        _modulator.Restart(_frequency);
+        _modulator.Restart(_halfPeriod);
     }
 
     private void SetVisibility(bool isOn)
@@ -49,6 +52,7 @@ public class Flasher : MonoBehaviour
     private void _duration_OnDone()
     {
         _isFlashing = false;
+        DoneFlashing?.Invoke();
     }
 
     private void _modulator_OnDone()
@@ -56,7 +60,7 @@ public class Flasher : MonoBehaviour
         if (_isFlashing)
         {
             ToggleVisuals();
-            _modulator.Restart(_frequency);
+            _modulator.Restart(_halfPeriod);
         }
         else
         {

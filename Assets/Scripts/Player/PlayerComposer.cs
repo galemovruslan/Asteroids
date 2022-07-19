@@ -17,10 +17,14 @@ public class PlayerComposer : MonoBehaviour
     {
         _mover = GetComponent<PlayerMover>();
         _shooter = GetComponent<PlayerShooter>();
+        _flasher = GetComponent<Flasher>();
+        _flasher.DoneFlashing += EndInvincibility;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_isInvincible) { return; }
+
         HandleDestroy();
     }
 
@@ -36,9 +40,15 @@ public class PlayerComposer : MonoBehaviour
         _shooter.ResetShooter();
     }
 
-    public void ActivateInvincibility()
+    public void ActivateInvincibility(float duration)
     {
+        _isInvincible = true;
+        _flasher.Flash(duration);
 
+    }
+    private void EndInvincibility()
+    {
+        _isInvincible = false;
     }
 
     private void HandleDestroy()
@@ -46,9 +56,5 @@ public class PlayerComposer : MonoBehaviour
         PlayerDestroyed?.Invoke();
     }
 
-    private void SetInvincible(float seconds)
-    {
-
-    }
 
 }

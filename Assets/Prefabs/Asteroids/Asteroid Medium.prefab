@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Size>k__BackingField: 1
+  _givesPoint: 50
 --- !u!1001 &8215812143320172234
 PrefabInstance:
   m_ObjectHideFlags: 0

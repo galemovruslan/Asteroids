@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidWaveSpawner : MonoBehaviour
 {
+    public event Action<int> OnDestroyedByPlayer;
+
     [SerializeField] private Pool _bigAsteroidPool;
     [SerializeField] private Pool _mediumAsteroidPool;
     [SerializeField] private Pool _smallAsteroidPool;
@@ -14,22 +17,30 @@ public class AsteroidWaveSpawner : MonoBehaviour
     [SerializeField] private int _spawnIncrement = 1;
     [SerializeField] private int _splitAmount = 2;
     [Range(0, 180f)]
-    [SerializeField] private float _splitAngleRange = 45;
+    [SerializeField] private float _splitAngleDegree = 45;
     [Range(0, 0.5f)]
-    [SerializeField] private float _borderMargin = 0f;
+    [SerializeField] private float _borderMarginRatio = 0f;
+    [Min(0)]
+    [SerializeField] private float _spawnDelaySeconds = 2f;
 
     private int _spawnAmount;
     private HashSet<Asteroid> _currentWave = new HashSet<Asteroid>();
     private DirectiontPicker _directiontPicker;
+    private Timer _spawnDelayTimer;
 
+    private void Awake()
+    {
+        _spawnDelayTimer = new Timer();
+        _spawnDelayTimer.OnDone += () => { SpawnWave(_spawnAmount); };
+    }
 
     public void StartSpawn()
     {
         ResetWave();
-        SpawnWave(_splitAmount);
+        DelayedSpawn();
     }
 
-    private void OnAsteroidDestroy(Asteroid asteroid, bool spawnNext)
+    private void OnAsteroidDestroy(Asteroid asteroid, bool spawnNext, int points)
     {
         asteroid.Destroyed -= OnAsteroidDestroy;
         _currentWave.Remove(asteroid);
@@ -42,8 +53,13 @@ public class AsteroidWaveSpawner : MonoBehaviour
         if (_currentWave.Count == 0)
         {
             _spawnAmount += _spawnIncrement;
-            SpawnWave(_spawnAmount);
+            DelayedSpawn();
         }
+        if (points != 0)
+        {
+            OnDestroyedByPlayer?.Invoke(points);
+        }
+
     }
 
     private void SpawnSubAsteroids(Asteroid asteroid)
@@ -98,6 +114,7 @@ public class AsteroidWaveSpawner : MonoBehaviour
 
     private void SpawnWave(int size)
     {
+
         for (int i = 0; i < size; i++)
         {
             Asteroid newAsteroid = _bigAsteroidPool.GetItem() as Asteroid;
@@ -106,36 +123,43 @@ public class AsteroidWaveSpawner : MonoBehaviour
             _currentWave.Add(newAsteroid);
 
             LaunchData launchData = GetRandomLaunchDirection();
-            float speed = Random.Range(_minSpeed, _maxSpeed);
+            float speed = UnityEngine.Random.Range(_minSpeed, _maxSpeed);
             newAsteroid.Launch(launchData.Start, launchData.Direction, speed, 1f);
         }
+    }
+    private void DelayedSpawn()
+    {
+        _spawnDelayTimer.Restart(_spawnDelaySeconds);
     }
 
     private LaunchData GetRandomLaunchDirection()
     {
-        if (Random.Range(0f, 1f) < 0.5)
+        if (UnityEngine.Random.Range(0f, 1f) < 0.5)
         {
-            bool isPositive = Random.Range(0, 0.5f) < 0.5 ? true : false;
-            return _directiontPicker.GetHorizontalDirection(isPositive, _borderMargin);
+            bool isPositive = UnityEngine.Random.Range(0, 0.5f) < 0.5 ? true : false;
+            return _directiontPicker.GetHorizontalDirection(isPositive, _borderMarginRatio);
         }
         else
         {
-            bool isPositive = Random.Range(0, 0.5f) < 0.5 ? true : false;
-            return _directiontPicker.GetVerticalDirection(isPositive, _borderMargin);
+            bool isPositive = UnityEngine.Random.Range(0, 0.5f) < 0.5 ? true : false;
+            return _directiontPicker.GetVerticalDirection(isPositive, _borderMarginRatio);
         }
     }
 
     private void CalculateSubAsteroidsVelocity(Asteroid parentAsteroid, List<Asteroid> subAsteroids)
     {
-        float subRotation = Random.Range(0f, 10f);
-        float subSpeed = Random.Range(_minSpeed, _maxSpeed);
-        float angleOffset = 2 * _splitAngleRange / _splitAmount;
+        float subRotation = UnityEngine.Random.Range(0f, 10f);
+        float subSpeed = UnityEngine.Random.Range(_minSpeed, _maxSpeed);
+        float angleOffset = 2 * _splitAngleDegree / _splitAmount;
         Vector2 parentVelocity = parentAsteroid.Velocity;
 
         for (int i = 0; i < subAsteroids.Count; i++)
         {
-            Vector2 splitVelocity = Quaternion.Euler(0, 0, -_splitAngleRange + i * angleOffset) * parentVelocity;
+            Vector2 splitVelocity = Quaternion.Euler(0, 0, -_splitAngleDegree + i * angleOffset) * parentVelocity;
             subAsteroids[i].Launch(parentAsteroid.Position, splitVelocity, subSpeed, subRotation);
         }
     }
+
+    
+
 }

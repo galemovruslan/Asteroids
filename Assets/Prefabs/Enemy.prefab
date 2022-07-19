@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onScreenTime: 10
+  _givesPoints: 200
 --- !u!114 &231274028348870277
 MonoBehaviour:
   m_ObjectHideFlags: 0

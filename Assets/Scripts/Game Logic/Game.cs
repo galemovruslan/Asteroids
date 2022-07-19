@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public event Action<bool> GameStarted;
+
     [SerializeField] private int _maxHealth = 5;
     [SerializeField] private IntegerIndicator _healthUI;
     [SerializeField] private IntegerIndicator _pointsUI;
@@ -9,12 +12,15 @@ public class Game : MonoBehaviour
     [SerializeField] private UfoSpawner _ufoSpawner;
     [SerializeField] private AsteroidWaveSpawner _asteroidSpawner;
     [SerializeField] private MainMenu _menu;
+    [SerializeField] private Vector2 _playerSpawnPosition = Vector2.zero;
+    [SerializeField] private float _invincibilityTime = 2f;
 
     private PlayerPlacer _playerPlacer;
     private LifesSystem _lifes;
     private PointsSystem _points;
     private IInputHandle _inputScheme;
     private Pause _gamePause;
+    private bool _isStarted;
 
     private void Awake()
     {
@@ -35,6 +41,9 @@ public class Game : MonoBehaviour
 
         OnLiveTaken(_lifes.Current);
         OnPointsAdded(_points.Current);
+
+        _ufoSpawner.OnDestroyedByPlayer += _points.Add;
+        _asteroidSpawner.OnDestroyedByPlayer += _points.Add;
     }
 
 
@@ -61,13 +70,16 @@ public class Game : MonoBehaviour
     
     public void StartGame()
     {
-        _playerPlacer.PlaceAt(Vector2.zero);
+        _playerPlacer.PlaceAt(_playerSpawnPosition);
         _ufoSpawner.StarSpawn();
         _asteroidSpawner.StartSpawn();
         _lifes.ResetHealth();
         _points.Reset();
         _gamePause.SetPause(false);
-        _player.ResetPlayer(Vector2.zero);
+        _player.ResetPlayer(_playerSpawnPosition);
+        _player.ActivateInvincibility(_invincibilityTime);
+        _isStarted = true;
+        GameStarted?.Invoke(_isStarted);
     }
 
     public void OnInputSchmeChanged(ControlType type)
@@ -103,6 +115,8 @@ public class Game : MonoBehaviour
     private void OnPlayerDestroyed()
     {
         _lifes.TakeLive();
+        _player.ResetPlayer(_playerSpawnPosition);
+        _player.ActivateInvincibility(_invincibilityTime);
     }
 
     private void OnPointsAdded(int amount)
@@ -115,12 +129,14 @@ public class Game : MonoBehaviour
         _healthUI.SetValue(amount);
         if (amount == 0)
         {
-            _gamePause.SetPause(true);
+            GameOver();
         }
     }
 
     private void GameOver()
     {
-
+        _isStarted = false;
+        GameStarted?.Invoke(_isStarted);
+        PauseGame();
     }
 }

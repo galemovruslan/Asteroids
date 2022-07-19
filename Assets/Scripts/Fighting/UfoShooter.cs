@@ -47,6 +47,11 @@ public class UfoShooter : MonoBehaviour
         _canFire = false;
     }
 
+    public void ResetShooter()
+    {
+        _weapon.ResetWeapon();
+    }
+
     private void AimWeapon()
     {
         Vector2 toPlayer = _player.transform.position - transform.position;

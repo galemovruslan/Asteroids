@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private Button _continue;
     [SerializeField] private Button _newGame;
-    [SerializeField] private Toggle _inputSelector;
+    [SerializeField] private FixedStateButton _inputSelector;
     [SerializeField] private Button _quit;
     
     private Game _game;
@@ -19,14 +19,17 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         _continue.onClick.AddListener(ContinueGame);
+        _continue.interactable = false;
         _newGame.onClick.AddListener(NewGame);
-        _inputSelector.onValueChanged.AddListener(SelectInputScheme);
+        _inputSelector.OnClick.AddListener(SelectInputScheme);
         _quit.onClick.AddListener(Quit);
     }
 
     public void Initialize(Game game)
     {
         _game = game;
+        _game.GameStarted += OnGameStarted;
+
     }
 
     public void SetVisible(bool value)
@@ -49,12 +52,17 @@ public class MainMenu : MonoBehaviour
     {
         ControlType selectedType = isCombined ? ControlType.Combined : ControlType.Keyboard;
         _game.OnInputSchmeChanged(selectedType);
-        
     }
 
     private void Quit()
     {
         Application.Quit();
+    }
+
+
+    private void OnGameStarted(bool isStarted)
+    {
+        _continue.interactable = isStarted;
     }
 
 }

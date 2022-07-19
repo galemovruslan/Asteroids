@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visuals: {fileID: 6612388143759189962}
-  _frequency: 0.5
+  _halfPeriod: 0.25
 --- !u!1001 &6655474484172119377
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,11 +13,13 @@ public class Asteroid : PoolItem
         Big
     }
 
-    public event Action<Asteroid, bool> Destroyed;
+    public event Action<Asteroid, bool, int> Destroyed;
 
     public Vector2 Velocity => _velocity;
     public Vector2 Position => transform.position;
+
     [field: SerializeField] public AsteroidSize Size { get; private set; }
+    [SerializeField] private int _givesPoint;
 
     private ObjectMover _mover;
     private float _angleSpeed;
@@ -43,22 +45,21 @@ public class Asteroid : PoolItem
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Bullet>(out var bullet))
+        bool spawnNext = other.TryGetComponent<Bullet>(out var bullet);
+        int points = 0;
+
+        if( (spawnNext && bullet.gameObject.layer == LayerMask.NameToLayer("Player Bullet")) ||
+            (other.TryGetComponent<PlayerComposer>(out var player)))
         {
-            bool spawnNext = true;
-            GetHit(spawnNext);
-        }
-        else
-        {
-            bool spawnNext = false;
-            GetHit(spawnNext);
+            points = _givesPoint;
         }
 
+        GetHit(spawnNext, points);
     }
 
-    private void GetHit(bool spawnNext)
+    private void GetHit(bool spawnNext, int points)
     {
-        Destroyed?.Invoke(this, spawnNext);
+        Destroyed?.Invoke(this, spawnNext, points);
         ReturnToPool();
     }
 }

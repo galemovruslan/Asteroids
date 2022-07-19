@@ -7,9 +7,10 @@ using UnityEngine;
  RequireComponent(typeof(UfoShooter))]
 public class Ufo : MonoBehaviour
 {
-    public event Action Destroyed;
+    public event Action<int> Destroyed;
 
     [SerializeField] private float _onScreenTime = 10f;
+    [SerializeField] private int _givesPoints;
 
     private float _speed = 5f;
     private ObjectMover _mover;
@@ -32,7 +33,13 @@ public class Ufo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        HandleDestruction();
+        int points = 0;
+        if(other.TryGetComponent<PlayerComposer>(out var composer)||
+            other.TryGetComponent<Bullet>(out var bullet))
+        {
+            points = 50;
+        }
+        HandleDestruction(points);
     }
 
     public void Launch(Vector2 position, Vector2 direction)
@@ -52,12 +59,13 @@ public class Ufo : MonoBehaviour
 
     public void ForceDestroy()
     {
-        HandleDestruction();
+        _shooter.ResetShooter();
+        HandleDestruction(0);
     }
 
-    private void HandleDestruction()
+    private void HandleDestruction(int points)
     {
-        Destroyed?.Invoke();
+        Destroyed?.Invoke(points);
         WaitForLaunch();
     }
 

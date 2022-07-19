@@ -11,7 +11,8 @@ public class PauseableObject : MonoBehaviour
 
     public void SetPause(bool value)
     {
-        if (_pauseables == null)
+        if (_pauseables == null ||
+            _pauseables.Length == 0)
         {
             _pauseables = GetComponents<IPauseable>();
         }

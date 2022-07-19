@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UfoSpawner : MonoBehaviour
 {
+    public event Action<int> OnDestroyedByPlayer;
+
     [SerializeField] private Ufo _ufoPrefab;
     [SerializeField] private float _minSpawnDelay = 20f;
     [SerializeField] private float _maxSpawnDelay = 40f;
@@ -57,9 +59,14 @@ public class UfoSpawner : MonoBehaviour
         _ufo.Launch(start, direction);
     }
 
-    private void OnDestruction()
+    private void OnDestruction(int points)
     {
         _respawnDelay = UnityEngine.Random.Range(_minSpawnDelay, _maxSpawnDelay);
         _respawnTimer.Restart(_respawnDelay);
+        
+        if(points != 0)
+        {
+            OnDestroyedByPlayer?.Invoke(points);
+        }
     }
 }
