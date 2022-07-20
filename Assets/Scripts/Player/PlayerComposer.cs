@@ -3,7 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerMover)),
  RequireComponent(typeof(PlayerShooter)),
- RequireComponent(typeof(Flasher))]
+ RequireComponent(typeof(Flasher)),
+ RequireComponent(typeof(SFXComposer))]
 public class PlayerComposer : MonoBehaviour
 {
     public event Action PlayerDestroyed;
@@ -11,15 +12,24 @@ public class PlayerComposer : MonoBehaviour
     private PlayerMover _mover;
     private PlayerShooter _shooter;
     private Flasher _flasher;
+    private SFXComposer _sfxComposer;
     private bool _isInvincible;
 
     private void Awake()
     {
         _mover = GetComponent<PlayerMover>();
+        _mover.Thrusting += OnThrusting;
+        
         _shooter = GetComponent<PlayerShooter>();
+        _shooter.ShotMade += OnShotMade;
+        
         _flasher = GetComponent<Flasher>();
         _flasher.DoneFlashing += EndInvincibility;
+        
+        _sfxComposer = GetComponent<SFXComposer>();
     }
+
+   
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,6 +48,7 @@ public class PlayerComposer : MonoBehaviour
     {
         _mover.ReserMover(position);
         _shooter.ResetShooter();
+        _sfxComposer.Play(SFXComposer.ClipType.Spawn);
     }
 
     public void ActivateInvincibility(float duration)
@@ -54,7 +65,15 @@ public class PlayerComposer : MonoBehaviour
     private void HandleDestroy()
     {
         PlayerDestroyed?.Invoke();
+        _sfxComposer.Play(SFXComposer.ClipType.Destroy);
     }
 
-
+    private void OnThrusting()
+    {
+        _sfxComposer.Play(SFXComposer.ClipType.Move);
+    }
+    private void OnShotMade()
+    {
+        _sfxComposer.Play(SFXComposer.ClipType.Shot);
+    }
 }

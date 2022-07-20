@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(ObjectMover))]
 public class PlayerMover : MonoBehaviour
 {
+    public event Action Thrusting;
+
     [SerializeField] private float _thrustForce;
     [SerializeField] private float _rotationSpeed;
 
@@ -28,9 +31,14 @@ public class PlayerMover : MonoBehaviour
 
     public void HandleControl(float thrustCommand, float rotationCommand)
     {
-        var thrustVector = transform.right * thrustCommand * _thrustForce;
-        var rotationSpeed = rotationCommand * _rotationSpeed;
+        Vector3 thrustVector = transform.right * thrustCommand * _thrustForce;
+        float rotationSpeed = rotationCommand * _rotationSpeed;
         _mover.Move(thrustVector, rotationSpeed);
+
+        if(thrustCommand > 0)
+        {
+            Thrusting?.Invoke();
+        }
     }
 
     public void ReserMover(Vector2 resetPosition)

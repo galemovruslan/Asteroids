@@ -8,21 +8,21 @@ public class MainMenu : MonoBehaviour
 {
     public event Action<ControlType> InputSchmeChanged;
 
-    [SerializeField] private Button _continue;
-    [SerializeField] private Button _newGame;
+    [SerializeField] private MenuButton _continue;
+    [SerializeField] private MenuButton _newGame;
     [SerializeField] private FixedStateButton _inputSelector;
-    [SerializeField] private Button _quit;
+    [SerializeField] private MenuButton _quit;
     
     private Game _game;
     private bool _visible;
 
     private void Awake()
     {
-        _continue.onClick.AddListener(ContinueGame);
-        _continue.interactable = false;
-        _newGame.onClick.AddListener(NewGame);
+        _continue.OnClick.AddListener(ContinueGame);
+        _continue.Interactable = false;
+        _newGame.OnClick.AddListener(NewGame);
         _inputSelector.OnClick.AddListener(SelectInputScheme);
-        _quit.onClick.AddListener(Quit);
+        _quit.OnClick.AddListener(Quit);
     }
 
     public void Initialize(Game game)
@@ -62,7 +62,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnGameStarted(bool isStarted)
     {
-        _continue.interactable = isStarted;
+        _continue.Interactable = isStarted;
     }
 
 }

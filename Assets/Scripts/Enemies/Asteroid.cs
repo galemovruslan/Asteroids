@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ObjectMover))]
+[RequireComponent(typeof(ObjectMover)),
+ RequireComponent(typeof(SFXComposer))]
 public class Asteroid : PoolItem
 {
     public enum AsteroidSize
@@ -22,12 +23,14 @@ public class Asteroid : PoolItem
     [SerializeField] private int _givesPoint;
 
     private ObjectMover _mover;
+    private SFXComposer _sfxComposer;
     private float _angleSpeed;
     private Vector2 _velocity;
 
     private void Awake()
     {
         _mover = GetComponent<ObjectMover>();
+        _sfxComposer = GetComponent<SFXComposer>();
     }
 
     private void Update()
@@ -61,5 +64,6 @@ public class Asteroid : PoolItem
     {
         Destroyed?.Invoke(this, spawnNext, points);
         ReturnToPool();
+        _sfxComposer.Play(SFXComposer.ClipType.Destroy);
     }
 }

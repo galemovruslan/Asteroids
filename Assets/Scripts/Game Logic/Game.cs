@@ -30,7 +30,7 @@ public class Game : MonoBehaviour
         _points = new PointsSystem(0);
         _points.PointsAdded += OnPointsAdded;
 
-        _playerPlacer = new PlayerPlacer(_player);
+        //_playerPlacer = new PlayerPlacer(_player);
         _gamePause = new Pause();
         _gamePause.PauseSet += HandlePauseChange;
 
@@ -70,7 +70,7 @@ public class Game : MonoBehaviour
     
     public void StartGame()
     {
-        _playerPlacer.PlaceAt(_playerSpawnPosition);
+        //_playerPlacer.PlaceAt(_playerSpawnPosition);
         _ufoSpawner.StarSpawn();
         _asteroidSpawner.StartSpawn();
         _lifes.ResetHealth();

@@ -20,11 +20,11 @@ public class Weapon : MonoBehaviour
         _bulletPool = Instantiate<Pool>(_bulletPoolPrefab);
     }
 
-    public void Fire()
+    public bool TryFire()
     {
         if (!_canFire)
         {
-            return;
+            return false;
         }
 
         float lifeTime = Constants.ScreenRect.width / _bulletSpeed;
@@ -33,6 +33,7 @@ public class Weapon : MonoBehaviour
 
         _canFire = false;
         _timer.Restart(_fireCooldown);
+        return true;
     }
 
     public void ResetWeapon()

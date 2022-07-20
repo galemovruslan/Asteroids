@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Weapon))]
 public class PlayerShooter : MonoBehaviour, IPauseable
 {
+    public event Action ShotMade;
 
     private Weapon _weapon;
     private IInputHandle _input;
@@ -15,7 +17,7 @@ public class PlayerShooter : MonoBehaviour, IPauseable
 
     private void Update()
     {
-        if(_isPaused) { return; }
+        if (_isPaused) { return; }
 
         HandleShoot();
     }
@@ -33,9 +35,15 @@ public class PlayerShooter : MonoBehaviour, IPauseable
     private void HandleShoot()
     {
         bool shootCommand = _input.GetAttack();
-        if (shootCommand)
+        if (!shootCommand)
         {
-            _weapon.Fire();
+            return;
+        }
+
+        bool fired = _weapon.TryFire();
+        if (fired)
+        {
+            ShotMade?.Invoke();
         }
     }
 

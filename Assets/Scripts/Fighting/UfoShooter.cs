@@ -36,15 +36,19 @@ public class UfoShooter : MonoBehaviour
         _fireCoolDown.Stop();
     }
 
-    public void Fire()
+    public bool TryFire()
     {
-        if (!_canFire) { return; }
+        if (!_canFire) 
+        {
+            return false; 
+        }
 
         AimWeapon();
-        _weapon.Fire();
+        _weapon.TryFire();
 
         BeginCooldown();
         _canFire = false;
+        return true;
     }
 
     public void ResetShooter()

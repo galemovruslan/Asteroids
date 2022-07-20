@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(SFXComposer))]
 public class FixedStateButton : MonoBehaviour
 {
     public UnityEvent<bool> OnClick;
@@ -13,14 +14,18 @@ public class FixedStateButton : MonoBehaviour
     [SerializeField] private string _onStateLabel;
     [SerializeField] private Toggle _toggle;
 
+    private SFXComposer _sfxComposer;
+
     private void Awake()
     {
         _toggle.onValueChanged.AddListener(OnToggleValueChange);
+        _sfxComposer = GetComponent<SFXComposer>();
     }
 
     private void OnToggleValueChange(bool value)
     {
         _label.text = value ? _onStateLabel : _offStateLabel;
         OnClick?.Invoke(value);
+        _sfxComposer.Play(SFXComposer.ClipType.Shot);
     }
 }
