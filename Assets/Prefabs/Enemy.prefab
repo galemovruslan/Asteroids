@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 231274028348870277}
   - component: {fileID: 4938602703813606835}
   - component: {fileID: 6329583631040955839}
+  - component: {fileID: 4004243904345076518}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -170,6 +171,31 @@ MonoBehaviour:
   _bulletSpeed: 5
   _fireCooldown: 0.1
   _bulletPoolPrefab: {fileID: 4725088616956601978, guid: 1226823977943af4ba3db832633a6323, type: 3}
+--- !u!114 &4004243904345076518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305558124471826008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32264daa2fa458418b2aabb4c8ae242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _definitions:
+  - Clip: {fileID: 8300000, guid: f09af968491127c4089d3cb39687ee68, type: 3}
+    Type: 0
+    Volume: 0.488
+    IgnorePause: 0
+  - Clip: {fileID: 8300000, guid: 185826b7477e31444918ae70ab67f0d1, type: 3}
+    Type: 1
+    Volume: 0.579
+    IgnorePause: 0
+  - Clip: {fileID: 8300000, guid: 186052fb8393ed2438f23726926d747d, type: 3}
+    Type: 2
+    Volume: 0.668
+    IgnorePause: 0
 --- !u!1001 &260470233475506939
 PrefabInstance:
   m_ObjectHideFlags: 0

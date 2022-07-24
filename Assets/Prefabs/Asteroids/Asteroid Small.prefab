@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4939822296012038647}
   - component: {fileID: 1393748091813755783}
   - component: {fileID: -3339798955196271600}
+  - component: {fileID: 33709545643831778}
+  - component: {fileID: 8089305678579958510}
   m_Layer: 6
   m_Name: Asteroid Small
   m_TagString: Untagged
@@ -75,6 +77,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Size>k__BackingField: 0
   _givesPoint: 100
+--- !u!114 &33709545643831778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914579339739927305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e06b87a3996ba4bb942199d35ac142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8089305678579958510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914579339739927305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32264daa2fa458418b2aabb4c8ae242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _definitions:
+  - Clip: {fileID: 8300000, guid: 186052fb8393ed2438f23726926d747d, type: 3}
+    Type: 2
+    Volume: 1
+    IgnorePause: 0
 --- !u!1001 &6761839991862393936
 PrefabInstance:
   m_ObjectHideFlags: 0

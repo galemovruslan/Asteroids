@@ -19,10 +19,14 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         _continue.OnClick.AddListener(ContinueGame);
-        _continue.Interactable = false;
         _newGame.OnClick.AddListener(NewGame);
         _inputSelector.OnClick.AddListener(SelectInputScheme);
         _quit.OnClick.AddListener(Quit);
+    }
+
+    private void Start()
+    {
+        _continue.Interactable = false;
     }
 
     public void Initialize(Game game)
